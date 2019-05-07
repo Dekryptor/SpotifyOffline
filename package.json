@@ -1,0 +1,27 @@
+{
+  "name": "spotifyoffline",
+  "version": "1.0.0",
+  "description": "Download spotify playlists for offline use",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js" 
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vcuramdev/SpotifyOffline.git"
+  },
+  "keywords": [
+    "Spotify",
+    "Electron"
+  ],
+  "author": "John Naylor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vcuramdev/SpotifyOffline/issues"
+  },
+  "homepage": "https://github.com/vcuramdev/SpotifyOffline#readme",
+  "dependencies": {
+    "electron": "^5.0.1"
+  }
+}
