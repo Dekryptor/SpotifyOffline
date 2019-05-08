@@ -10,18 +10,19 @@ function createWindow () {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    resizable: false,
     webPreferences: {
       nodeIntegration: true
     }
   });
 
   // This is just an example url - follow the guide for whatever service you are using
-  let scopes = 'user-read-private ' +
+  const scopes = 'user-read-private ' +
               'user-read-email ' +
               'playlist-read-private ' +
               'playlist-read-collaborative';
 
-  let authUrl = 'https://accounts.spotify.com/authorize' +
+  const authUrl = 'https://accounts.spotify.com/authorize' +
     '?response_type=code' +
     '&client_id=' + options.client_id +
     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
@@ -32,7 +33,7 @@ function createWindow () {
 
   // 'will-navigate' is an event emitted when the window.location changes
   // newUrl should contain the tokens you need
-  win.webContents.on('will-navigate', function (event, newUrl) {
+  win.webContents.on('will-navigate', (event, newUrl) => {
       console.log(newUrl);
       // More complex code to handle tokens goes here
   });
@@ -47,6 +48,7 @@ function createWindow () {
     win = null
   });
 }
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -65,11 +67,10 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
 
-  /* COMMENTED OUT FOR DEV
   if (win === null) {
     createWindow()
   }
-  */
+
 });
 
 // In this file you can include the rest of your app's specific main process
