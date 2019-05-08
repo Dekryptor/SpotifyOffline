@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron')
+const options = require('./secrets')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -27,8 +28,26 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   })
-}
 
+  // This is just an example url - follow the guide for whatever service you are using
+  let scopes = 'user-read-private user-read-email';
+  let authUrl = 'https://accounts.spotify.com/authorize' +
+    '?response_type=code' +
+    '&client_id=' + options.client_id +
+    (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+    '&redirect_uri=' + encodeURIComponent("https:localhost"));
+
+  win.loadURL(authUrl);
+  win.show();
+
+  // 'will-navigate' is an event emitted when the window.location changes
+  // newUrl should contain the tokens you need
+  win.webContents.on('will-navigate', function (event, newUrl) {
+      console.log(newUrl);
+      // More complex code to handle tokens goes here
+  });
+
+}
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
