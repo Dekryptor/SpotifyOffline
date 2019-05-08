@@ -1,5 +1,5 @@
 const { options } = require("./secrets");
-const { app, BrowserWindow } = require('electron/electron');
+const { app, BrowserWindow } = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -11,6 +11,8 @@ function createWindow () {
     width: 800,
     height: 600,
     resizable: false,
+    title: 'Spotify Offline',
+    // titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
     }
