@@ -60,5 +60,9 @@ typings/
 # next.js build output
 .next
 
+# IDEs
+.vscode
+.idea
+
 # Credentials
 secrets.js
