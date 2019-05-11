@@ -9,4 +9,4 @@ module.exports.downloadSong = function(title) {
       }
       console.log("OUTPUT: " + output.join('\n'));
    });
-}
+};

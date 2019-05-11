@@ -1,5 +1,7 @@
-const { options } = require("./secrets");
 const { app, BrowserWindow } = require('electron');
+
+const youtube = require('./youtube');
+const spotify = require('./spotify');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -18,19 +20,7 @@ function createWindow () {
     }
   });
 
-  // Scopes for what data the application wants to access
-  const scopes = 'user-read-private ' +
-              'user-read-email ' +
-              'playlist-read-private ' +
-              'playlist-read-collaborative';
-
-  const authUrl = 'https://accounts.spotify.com/authorize' +
-    '?response_type=code' +
-    '&client_id=' + options.client_id +
-    (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-    '&redirect_uri=' + encodeURIComponent("https://localhost/oauth/redirect");
-
-  win.loadURL(authUrl);
+  win.loadURL(spotify.login());
   win.show();
 
   // 'will-navigate' is an event emitted when the window.location changes
