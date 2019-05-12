@@ -27,11 +27,17 @@ function createWindow () {
   // newUrl should contain the tokens you need
   win.webContents.on('will-navigate', (event, newUrl) => {
       console.log('[DEBUG] ' + newUrl);
-      // More complex code to handle tokens goes here
+
+      const urlParams = new URLSearchParams(newUrl);
+      const code = urlParams.get('code');
+
+      spotify.getAccessToken(code);
   });
 
   // and load the index.html of the app.
-  win.loadFile('./index.html');
+  win.loadFile('./src/index.html');
+
+  win.webContents.openDevTools();
 
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
@@ -39,6 +45,7 @@ function createWindow () {
     // when you should delete the corresponding element.
     win = null
   });
+
 }
 
 // This method will be called when Electron has finished
