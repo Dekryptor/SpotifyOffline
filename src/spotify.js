@@ -328,7 +328,7 @@ module.exports.getPlaylistTracks = function(playlist_id) {
 
     let ret = null;
 
-    return request.get(req_options, (err, res, body) => {
+    request.get(req_options, (err, res, body) => {
         if (err) {
             console.error(err);
             return err;
