@@ -7,7 +7,7 @@ const { options } = require('./secrets');
 const API_URL = 'https://api.spotify.com/v1';
 const TOKEN_URL = 'https://api.spotify.com/api/token';
 
-module.exports.login = function() {
+module.exports.login = () => {
 
     // Scopes for what data the application wants to access
     const scopes = 'user-read-private ' +
@@ -15,19 +15,18 @@ module.exports.login = function() {
         'playlist-read-private ' +
         'playlist-read-collaborative';
 
-    const authUrl = 'https://accounts.spotify.com/authorize' +
+    return 'https://accounts.spotify.com/authorize' +
         '?response_type=code' +
         '&client_id=' + options.client_id +
         (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
         '&redirect_uri=' + encodeURIComponent(options.redirect);
 
-    return authUrl;
 };
 
 /**
  * POST https://accounts.spotify.com/api/token
  */
-module.exports.getAccessToken = function(authorization_code) {
+module.exports.getAccessToken = (authorization_code) => {
    console.log("getting user access token");
 
    const req_options = {
@@ -69,7 +68,7 @@ module.exports.getAccessToken = function(authorization_code) {
 /**
  * POST https://accounts.spotify.com/api/token
  */
-const refreshAccessToken = function() {
+const refreshAccessToken = () => {
 
     console.log("refreshing access token");
 
@@ -172,9 +171,10 @@ const refreshAccessToken = function() {
     "total": 9
 };
  */
-module.exports.getUserPlaylists = function(user_id) {
+module.exports.getUserPlaylists = (user_id) => {
     console.log("getting user playlists");
 
+    // Check if token has expired and refresh if necessary
     if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
         refreshAccessToken();
     }
@@ -231,7 +231,14 @@ module.exports.getUserPlaylists = function(user_id) {
           "type" : "artist",
           "uri" : "spotify:artist:21451j1KhjAiaYKflxBjr1"
         } ],
-        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "UY" ],
+        "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR",
+                                "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE",
+                                "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB",
+                                "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS",
+                                "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT",
+                                "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE",
+                                "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV",
+                                "TR", "TW", "UY" ],
         "external_urls" : {
           "spotify" : "https://open.spotify.com/album/5GjKG3Y8OvSVJO55dQTFyD"
         },
@@ -273,7 +280,14 @@ module.exports.getUserPlaylists = function(user_id) {
         "type" : "artist",
         "uri" : "spotify:artist:1vyhD5VmyZ7KMfW5gqLgo5"
       } ],
-      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR", "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE", "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB", "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS", "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT", "MX", "MY", "NI", "NL", "NO", "NZ", "PA", "PE", "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV", "TR", "TW", "UY" ],
+      "available_markets" : [ "AD", "AR", "AT", "AU", "BE", "BG", "BO", "BR",
+                            "CA", "CH", "CL", "CO", "CR", "CY", "CZ", "DE",
+                            "DK", "DO", "EC", "EE", "ES", "FI", "FR", "GB",
+                            "GR", "GT", "HK", "HN", "HU", "ID", "IE", "IS",
+                            "IT", "JP", "LI", "LT", "LU", "LV", "MC", "MT",
+                            "MX",  "MY", "NI", "NL", "NO", "NZ", "PA", "PE",
+                            "PH", "PL", "PT", "PY", "SE", "SG", "SK", "SV",
+                            "TR", "TW", "UY" ],
       "disc_number" : 1,
       "duration_ms" : 209453,
       "explicit" : false,
@@ -312,9 +326,10 @@ module.exports.getUserPlaylists = function(user_id) {
   "total" : 58
 }
   */
-module.exports.getPlaylistTracks = function(playlist_id) {
+module.exports.getPlaylistTracks = (playlist_id) => {
     console.log('getting playlist tracks');
 
+    // Check if token has expired and refresh if necessary
     if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
         refreshAccessToken();
     }
