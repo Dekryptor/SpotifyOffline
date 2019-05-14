@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "main": "public/Main.js",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "base-64": "^0.1.0",
     "react": "^16.8.6",
@@ -21,20 +22,20 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "electron": "^5.0.1",
     "electron-builder": "^20.40.2"
+  },
+  "preelectron-pack": "npm run build",
+  "electron-pack": "build --win --macos -c.extraMetadata.main=build/Main.js",
+  "build": {
+    "appId": "nonExistentID",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
   }
 }

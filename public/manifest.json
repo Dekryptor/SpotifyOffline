@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Spotify Offline",
+  "name": "Spotify Offline",
   "icons": [
     {
       "src": "favicon.ico",

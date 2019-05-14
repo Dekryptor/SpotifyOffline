@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+// const path = require('path') // Required for building final app
 
 const youtube = require('./youtube');
 const spotify = require('./spotify');
@@ -35,6 +36,7 @@ function createWindow () {
   });
 
   // and load the index.html of the app.
+  // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`) // Required when building final application
   win.loadURL('http://localhost:3000');
 
   win.webContents.openDevTools();
