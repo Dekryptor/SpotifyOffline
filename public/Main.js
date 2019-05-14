@@ -1,8 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 // const path = require('path') // Required for building final app
 
-const youtube = require('./youtube');
-const spotify = require('./spotify');
+const spotify = require('../src/spotify'); // I need the initial login redirect for spotify auth
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
