@@ -29,6 +29,11 @@ function App() {
           Check out more apps made by RamDev!
         </a>
 
+        <button onClick={ (e) => { alert('Log in user!') } } >
+          login with spotify
+        </button>
+
+        {/*
         <DropdownButton
             title='playlists'
             id='dropdown-playlists'
@@ -41,6 +46,7 @@ function App() {
             ))
           }
         </DropdownButton>
+        */}
       </header>
     </div>
   );
