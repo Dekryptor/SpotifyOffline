@@ -10,6 +10,7 @@ import { getUserPlaylists } from './spotify';
 function App() {
 
   // TODO: Constructor for setting up didAuthenticate variable
+  // TODO: Add Button `login` UI element to ask the user to login if didAuthenicate is false
   // TODO: componentDidMount for redirecting to spotify for authentication
 
   return (
