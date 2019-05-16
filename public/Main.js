@@ -20,8 +20,6 @@ function createWindow () {
     }
   });
 
-  win.loadURL(spotify.login());
-  win.show();
 
   // 'will-navigate' is an event emitted when the window.location changes
   // newUrl should contain the tokens you need
@@ -37,6 +35,7 @@ function createWindow () {
   // and load the index.html of the app.
   // win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`) // Required when building final application
   win.loadURL('http://localhost:3000');
+  win.show();
 
   win.webContents.openDevTools();
 

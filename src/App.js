@@ -9,14 +9,12 @@ import { getUserPlaylists } from './spotify';
 // TODO: Refactor function to class for needed components
 function App() {
 
-  // TODO: Constructor for setting up didAuthenticate variable
-  // TODO: Add Button `login` UI element to ask the user to login if didAuthenicate is false
-  // TODO: componentDidMount for redirecting to spotify for authentication
+  // TODO: Constructor for setting up didAuthenticate variable to tell if user has logged in
+  // TODO: Add Button `login` UI element to ask the user to login if they haven't already
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Download songs for offline use!
         </p>
