@@ -2,6 +2,8 @@
 
 > Listen to Spotify offline
 
+This tiny desktop app allows authentication with Spotify to pick out playlists and download their mp3's for offline use.
+
 #### Build Setup
 
 ``` bash

@@ -13,3 +13,6 @@ thumbs.db
 !.gitkeep
 
 secrets.js
+
+.idea
+.vscode
