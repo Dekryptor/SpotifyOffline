@@ -1,21 +1,20 @@
 
 const state = {
-    playlists: []
-};
+  playlists: []
+}
 
 const mutations = {
-};
-
+}
 
 const actions = {
-    updatePlaylists() {
-        // Make API call to Spotify for playlists data
-        this.state.playlists = [];
-    }
-};
+  updatePlaylists () {
+    // Make API call to Spotify for playlists data
+    this.state.playlists = []
+  }
+}
 
 export default {
-    state,
-    mutations,
-    actions
-};
+  state,
+  mutations,
+  actions
+}

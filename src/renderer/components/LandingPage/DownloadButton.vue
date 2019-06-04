@@ -1,11 +1,11 @@
 <template>
-   <button>Download Playlist</button>
+  <button>Download Playlist</button>
 </template>
 
 <script>
-    export default {
-        name: "DownloadButton"
-    }
+export default {
+  name: 'DownloadButton'
+}
 </script>
 
 <style scoped>

@@ -1,33 +1,52 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
+    <img
+      id="logo"
+      src="~@/assets/logo.png"
+      alt="electron-vue"
+    >
     <main>
       <div class="left-side">
         <span class="title">
           Welcome to Spotify Offline!
         </span>
 
-        <!-- system-information is gonna have to go -->
-        <system-information></system-information>
-        <playlist-selector></playlist-selector>
-        <download-button></download-button>
-        <download-status></download-status>
+        <system-information />
+        <playlist-selector />
+        <download-button />
+        <download-status />
       </div>
 
       <div class="right-side">
         <div class="doc">
-          <div class="title">Getting Started</div>
+          <div class="title">
+            Getting Started
+          </div>
           <p>
             electron-vue comes packed with detailed documentation that covers everything from
             internal configurations, using the project structure, building your application,
             and so much more.
           </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
+          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">
+            Read the Docs
+          </button><br><br>
         </div>
         <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
+          <div class="title alt">
+            Other Documentation
+          </div>
+          <button
+            class="alt"
+            @click="open('https://electron.atom.io/docs/')"
+          >
+            Electron
+          </button>
+          <button
+            class="alt"
+            @click="open('https://vuejs.org/v2/guide/')"
+          >
+            Vue.js
+          </button>
         </div>
       </div>
     </main>
@@ -35,25 +54,25 @@
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation'
-  import DownloadButton from './LandingPage/DownloadButton'
-  import DownloadStatus from './LandingPage/DownloadStatus'
-  import PlaylistSelector from './LandingPage/PlaylistSelector'
+import SystemInformation from './LandingPage/SystemInformation'
+import DownloadButton from './LandingPage/DownloadButton'
+import DownloadStatus from './LandingPage/DownloadStatus'
+import PlaylistSelector from './LandingPage/PlaylistSelector'
 
-  export default {
-    name: 'landing-page',
-    components: {
-      SystemInformation,
-      DownloadStatus,
-      DownloadButton,
-      PlaylistSelector
-    },
-    methods: {
-      open (link) {
-        this.$electron.shell.openExternal(link)
-      }
+export default {
+  name: 'LandingPage',
+  components: {
+    SystemInformation,
+    DownloadStatus,
+    DownloadButton,
+    PlaylistSelector
+  },
+  methods: {
+    open (link) {
+      this.$electron.shell.openExternal(link)
     }
   }
+}
 </script>
 
 <style>

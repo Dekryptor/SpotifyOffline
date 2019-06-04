@@ -1,110 +1,106 @@
-const request = require("request");
-const { encode } = require("base-64");
+const request = require('request')
+const { encode } = require('base-64')
 
-const { options } = require("./secrets");
+const { options } = require('./secrets')
 
-const API_URL = "https://api.spotify.com/v1";
-const TOKEN_URL = "https://api.spotify.com/api/token";
+const API_URL = 'https://api.spotify.com/v1'
+const TOKEN_URL = 'https://api.spotify.com/api/token'
 
 module.exports.login = () => {
+  // Scopes for what data the application wants to access
+  const scopes = 'user-read-private ' +
+        'user-read-email ' +
+        'playlist-read-private ' +
+        'playlist-read-collaborative'
 
-	// Scopes for what data the application wants to access
-	const scopes = "user-read-private " +
-        "user-read-email " +
-        "playlist-read-private " +
-        "playlist-read-collaborative";
-
-	return "https://accounts.spotify.com/authorize" +
-        "?response_type=code" +
-        "&client_id=" + options.client_id +
-        (scopes ? "&scope=" + encodeURIComponent(scopes) : "") +
-        "&redirect_uri=" + encodeURIComponent(options.redirect);
-
-};
+  return 'https://accounts.spotify.com/authorize' +
+        '?response_type=code' +
+        '&client_id=' + options.client_id +
+        (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
+        '&redirect_uri=' + encodeURIComponent(options.redirect)
+}
 
 /**
  * POST https://accounts.spotify.com/api/token
  */
-module.exports.getAccessToken = (authorization_code) => {
-	console.log("getting user access token");
+module.exports.getAccessToken = (authorizationCode) => {
+  console.log('getting user access token')
 
-	const req_options = {
-		url: TOKEN_URL,
-		headers: {
-			"Authorization": "Basic " + encode(options.client_id + ":" + options.client_secret)
-		},
-		postData: {
-			mineType: "application/x-www-form-urlencoded",
-			params: [
-				{
-					name: "grant_type",
-					value: "authorization_code"
-				},
-				{
-					name: "code",
-					value: authorization_code
-				},
-				{
-					name: "redirect_uri",
-					value: options.redirect_url
-				}
-			]
-		}
-	};
+  const reqOptions = {
+    url: TOKEN_URL,
+    headers: {
+      'Authorization': 'Basic ' + encode(options.client_id + ':' + options.client_secret)
+    },
+    postData: {
+      mineType: 'application/x-www-form-urlencoded',
+      params: [
+        {
+          name: 'grant_type',
+          value: 'authorization_code'
+        },
+        {
+          name: 'code',
+          value: authorizationCode
+        },
+        {
+          name: 'redirect_uri',
+          value: options.redirect_url
+        }
+      ]
+    }
+  }
 
-	request.post(req_options, (err, res, body) => {
-		if (err) {
-			console.error(err);
-			return err;
-		}
+  request.post(reqOptions, (err, res, body) => {
+    if (err) {
+      console.error(err)
+      return err
+    }
 
-		options.access_token = res.access_token;
-		options.refresh_token = res.refresh_token;
-		options.expirationTime = Date().getTime() + (res.expires_in * 1000);
-	});
-};
+    options.access_token = res.access_token
+    options.refresh_token = res.refresh_token
+    options.expirationTime = Date().getTime() + (res.expires_in * 1000)
+  })
+}
 
 /**
  * POST https://accounts.spotify.com/api/token
  */
 const refreshAccessToken = () => {
+  console.log('refreshing access token')
 
-	console.log("refreshing access token");
+  const reqOptions = {
+    url: TOKEN_URL,
+    headers: {
+      'Authorization': 'Basic ' + encode(options.client_id + ':' + options.client_secret)
+    },
+    postData: {
+      mineType: 'application/x-www-form-urlencoded',
+      params: [
+        {
+          name: 'grant_type',
+          value: 'refresh_token'
+        },
+        {
+          name: 'refresh_token',
+          value: options.refresh_token
+        }
+      ]
+    }
+  }
 
-	const req_options = {
-		url: TOKEN_URL,
-		headers: {
-			"Authorization": "Basic " + encode(options.client_id + ":" + options.client_secret)
-		},
-		postData: {
-			mineType: "application/x-www-form-urlencoded",
-			params: [
-				{
-					name: "grant_type",
-					value: "refresh_token"
-				},
-				{
-					name: "refresh_token",
-					value: options.refresh_token
-				},
-			]
-		}
-	};
+  request.post(reqOptions, (err, res, body) => {
+    if (err) {
+      console.error(err)
+      return err
+    }
 
-	request.post(req_options, (err, res, body) => {
-		if (err) {
-			console.error(err);
-			return err;
-		}
-
-		options.access_token = res.access_token;
-		options.expirationTime = Date().getTime() + (res.expires_in * 1000);
-
-	});
-};
+    options.access_token = res.access_token
+    options.expirationTime = Date().getTime() + (res.expires_in * 1000)
+  })
+}
 
 /**
- *  GET https://api.spotify.com/v1/users/{user_id}/playlists
+ *  GET https://api.spotify.com/v1/users/{userId}/playlists
  *
  *  EXAMPLE RESPONSE
  *  {
@@ -170,37 +166,37 @@ const refreshAccessToken = () => {
     "total": 9
 };
  */
-module.exports.getUserPlaylists = (user_id) => {
-	console.log("getting user playlists");
+module.exports.getUserPlaylists = (userId) => {
+  console.log('getting user playlists')
 
-	// Check if token has expired and refresh if necessary
-	if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
-		refreshAccessToken();
-	}
+  // Check if token has expired and refresh if necessary
+  if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
+    refreshAccessToken()
+  }
 
-	const req_options = {
-		url: API_URL + "/users/" + user_id + "/playlists",
-		headers: {
-			"Authorization": "Bearer " + options.access_token
-		}
-	};
+  const reqOptions = {
+    url: API_URL + '/users/' + userId + '/playlists',
+    headers: {
+      'Authorization': 'Bearer ' + options.access_token
+    }
+  }
 
-	let ret = null;
+  let ret = null
 
-	request.get(req_options, (err, res, body) => {
-		if (err) {
-			console.error(err);
-			return err;
-		}
+  request.get(reqOptions, (err, res, body) => {
+    if (err) {
+      console.error(err)
+      return err
+    }
 
-		ret = res.items;
-	});
+    ret = res.items
+  })
 
-	return ret;
-};
+  return ret
+}
 
 /**
-  * GET https://api.spotify.com/v1/playlists/{playlist_id}/tracks
+  * GET https://api.spotify.com/v1/playlists/{playlistId}/tracks
   *
   * EXAMPLE RESPONSE
  {
@@ -325,32 +321,31 @@ module.exports.getUserPlaylists = (user_id) => {
   "total" : 58
 }
   */
-module.exports.getPlaylistTracks = (playlist_id) => {
-	console.log("getting playlist tracks");
+module.exports.getPlaylistTracks = (playlistId) => {
+  console.log('getting playlist tracks')
 
-	// Check if token has expired and refresh if necessary
-	if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
-		refreshAccessToken();
-	}
+  // Check if token has expired and refresh if necessary
+  if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
+    refreshAccessToken()
+  }
 
-	const req_options = {
-		url: API_URL + "/playlists/" + playlist_id + "/tracks",
-		headers: {
-			"Authorization": "Bearer " + options.access_token
-		}
-	};
+  const reqOptions = {
+    url: API_URL + '/playlists/' + playlistId + '/tracks',
+    headers: {
+      'Authorization': 'Bearer ' + options.access_token
+    }
+  }
 
-	let ret = null;
+  let ret = null
 
-	request.get(req_options, (err, res, body) => {
-		if (err) {
-			console.error(err);
-			return err;
-		}
+  request.get(reqOptions, (err, res, body) => {
+    if (err) {
+      console.error(err)
+      return err
+    }
 
-		ret = res.items;
-	});
+    ret = res.items
+  })
 
-	return ret;
-};
-
+  return ret
+}

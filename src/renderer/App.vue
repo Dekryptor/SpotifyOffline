@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'spotifyoffline'
-  }
+export default {
+  name: 'Spotifyoffline'
+}
 </script>
 
 <style>

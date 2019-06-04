@@ -1,16 +1,16 @@
 <template>
-   <p>Downloading...</p>
+  <p>Downloading...</p>
 </template>
 
 <script>
-    export default {
-        name: "DownloadStatus",
-        data() {
-           return {
-              status: 'Downloading'
-           }
-        }
+export default {
+  name: 'DownloadStatus',
+  data () {
+    return {
+      status: 'Downloading'
     }
+  }
+}
 </script>
 
 <style scoped>

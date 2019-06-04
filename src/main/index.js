@@ -1,61 +1,60 @@
-"use strict";
+'use strict'
 
-import { app, BrowserWindow } from "electron";
-import * as fs from "fs";
-import * as os from 'os';
+import { app, BrowserWindow } from 'electron'
+import * as fs from 'fs'
+import * as os from 'os'
 
-import "../renderer/store";
+import '../renderer/store'
 
-const PATH_TO_PLAYLISTS = os.path.join(os.homedir(), "/Music/SpotifyPlaylists");
+const PATH_TO_PLAYLISTS = os.path.join(os.homedir(), '/Music/SpotifyPlaylists')
 
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
-if (process.env.NODE_ENV !== "development") {
-	global.__static = require("path").join(__dirname, "/static").replace(/\\/g, "\\\\");
+if (process.env.NODE_ENV !== 'development') {
+  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let mainWindow;
-const winURL = process.env.NODE_ENV === "development"
-	? "http://localhost:9080"
-	: `file://${__dirname}/index.html`;
+let mainWindow
+const winURL = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:9080'
+  : `file://${__dirname}/index.html`
 
 function createWindow () {
-	/**
+  /**
    * Initial window options
    */
-	mainWindow = new BrowserWindow({
-		height: 563,
-		width: 1000,
-		useContentSize: true,
-		resizable: false,
-	});
+  mainWindow = new BrowserWindow({
+    height: 563,
+    width: 1000,
+    useContentSize: true,
+    resizable: false
+  })
 
-	mainWindow.loadURL(winURL);
+  mainWindow.loadURL(winURL)
 
-	mainWindow.on("closed", () => {
-		mainWindow = null;
-	});
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
 }
 
-app.on("ready", createWindow);
+app.on('ready', createWindow)
 
-app.on("window-all-closed", () => {
-	if (process.platform !== "darwin") {
-		app.quit();
-	}
-});
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
 
-app.on("activate", () => {
+app.on('activate', () => {
+  // Checking if playlists dir already exists
+  if (!fs.existsSync(PATH_TO_PLAYLISTS)) fs.mkdir(PATH_TO_PLAYLISTS)
 
-	// Checking if playlists dir already exists
-	if (!fs.existsSync(PATH_TO_PLAYLISTS)) fs.mkdir(PATH_TO_PLAYLISTS);
-
-	if (mainWindow === null) {
-		createWindow();
-	}
-});
+  if (mainWindow === null) {
+    createWindow()
+  }
+})
 
 /**
  * Auto Updater
