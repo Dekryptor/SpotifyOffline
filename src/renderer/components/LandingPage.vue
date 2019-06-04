@@ -4,9 +4,14 @@
     <main>
       <div class="left-side">
         <span class="title">
-          Welcome to your new project!
+          Welcome to Spotify Offline!
         </span>
+
+        <!-- system-information is gonna have to go -->
         <system-information></system-information>
+        <playlist-selector></playlist-selector>
+        <download-button></download-button>
+        <download-status></download-status>
       </div>
 
       <div class="right-side">
@@ -31,10 +36,18 @@
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation'
+  import DownloadButton from './LandingPage/DownloadButton'
+  import DownloadStatus from './LandingPage/DownloadStatus'
+  import PlaylistSelector from './LandingPage/PlaylistSelector'
 
   export default {
     name: 'landing-page',
-    components: { SystemInformation },
+    components: {
+      SystemInformation,
+      DownloadStatus,
+      DownloadButton,
+      PlaylistSelector
+    },
     methods: {
       open (link) {
         this.$electron.shell.openExternal(link)

@@ -1,7 +1,12 @@
 "use strict";
 
 import { app, BrowserWindow } from "electron";
+import * as fs from "fs";
+import * as os from 'os';
+
 import "../renderer/store";
+
+const PATH_TO_PLAYLISTS = os.path.join(os.homedir(), "/Music/SpotifyPlaylists");
 
 /**
  * Set `__static` path to static files in production
@@ -22,8 +27,9 @@ function createWindow () {
    */
 	mainWindow = new BrowserWindow({
 		height: 563,
+		width: 1000,
 		useContentSize: true,
-		width: 1000
+		resizable: false,
 	});
 
 	mainWindow.loadURL(winURL);
@@ -42,6 +48,10 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
+
+	// Checking if playlists dir already exists
+	if (!fs.existsSync(PATH_TO_PLAYLISTS)) fs.mkdir(PATH_TO_PLAYLISTS);
+
 	if (mainWindow === null) {
 		createWindow();
 	}
