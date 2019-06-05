@@ -10,7 +10,6 @@ const state = {
 
 const mutations = {
   toggleDownloadStatus () {
-
     this.state.downloadStatus = !this.state.downloadStatus
   }
 }

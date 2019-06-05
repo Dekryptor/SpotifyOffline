@@ -3,13 +3,15 @@
     <select v-model="selectedPlaylist">
       <option
         disabled
-        value="">
+        value=""
+      >
         Please select one
       </option>
       <option
-          v-for="(playlist, key) in playlists"
-          :value="key"
-          :key="key">
+        v-for="(playlist, key) in playlists"
+        :key="key"
+        :value="key"
+      >
         {{ playlist }}
       </option>
     </select>

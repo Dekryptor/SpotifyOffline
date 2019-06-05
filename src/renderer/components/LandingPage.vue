@@ -15,7 +15,6 @@
         <download-button />
         <download-status />
       </div>
-
     </main>
   </div>
 </template>
