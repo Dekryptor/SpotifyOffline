@@ -3,8 +3,9 @@
     <select v-model="selectedPlaylist">
       <option
         disabled
-        value=""
-      >Please select one</option>
+        value="">
+        Please select one
+      </option>
       <option
           v-for="(playlist, key) in playlists"
           :value="key"
@@ -16,17 +17,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
   name: 'PlaylistSelector',
   data () {
     return {
-      selectedPlaylist: 'playlist1'
+      selectedPlaylist: null,
+      playlists: ['playlist1', 'playlist2', 'playlist3']
     }
-  },
+  }
 
-  computed: mapState(['playlists'])
 }
 </script>
 

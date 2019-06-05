@@ -2,7 +2,7 @@
   <button
     class="btn"
     type="button"
-    :class="status"
+    :class="downloadStatus"
     @click="download()"
   >
     Download Playlist
@@ -22,14 +22,11 @@ export default {
     download () {
       this.$store.dispatch('toggleDownloadStatus')
 
-      console.log(this.downloadStatus)
       // [!!!] Fake function to emulate downloading
       // TODO: Replace with actual downloading
-      /*
       setTimeout(() => {
         this.$store.dispatch('toggleDownloadStatus')
       }, 5000)
-       */
     }
   }
 }
