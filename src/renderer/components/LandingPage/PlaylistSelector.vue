@@ -1,24 +1,32 @@
 <template>
-  <select v-model="playlist">
-    <template v-for="playlist in playlists">
-      <option :key="playlist">
+  <label>
+    <select v-model="selectedPlaylist">
+      <option
+        disabled
+        value=""
+      >Please select one</option>
+      <option
+          v-for="(playlist, key) in playlists"
+          :value="key"
+          :key="key">
         {{ playlist }}
       </option>
-    </template>
-  </select>
+    </select>
+  </label>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'PlaylistSelector',
   data () {
     return {
-      // 'playlists' will later be a computed property
-      // This should use the Vuex store to make an API call
-      // to Spotify and update the vuex store with the playlist data
-      playlists: ['playlist1', 'playlist2', 'playlist3']
+      selectedPlaylist: 'playlist1'
     }
-  }
+  },
+
+  computed: mapState(['playlists'])
 }
 </script>
 

@@ -1,15 +1,21 @@
 <template>
-  <p>Downloading...</p>
+  <p v-if="downloadStatus">
+    Downloading...
+  </p>
+  <p v-else>
+    READY!
+  </p>
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
   name: 'DownloadStatus',
-  data () {
-    return {
-      status: 'Downloading'
-    }
-  }
+
+  computed: mapState(['downloadStatus'])
+
 }
 </script>
 

@@ -1,10 +1,37 @@
 <template>
-  <button>Download Playlist</button>
+  <button
+    class="btn"
+    type="button"
+    :class="status"
+    @click="download()"
+  >
+    Download Playlist
+  </button>
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
-  name: 'DownloadButton'
+  name: 'DownloadButton',
+
+  computed: mapState(['downloadStatus']),
+
+  methods: {
+    download () {
+      this.$store.dispatch('toggleDownloadStatus')
+
+      console.log(this.downloadStatus)
+      // [!!!] Fake function to emulate downloading
+      // TODO: Replace with actual downloading
+      /*
+      setTimeout(() => {
+        this.$store.dispatch('toggleDownloadStatus')
+      }, 5000)
+       */
+    }
+  }
 }
 </script>
 

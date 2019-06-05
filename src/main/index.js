@@ -1,12 +1,12 @@
 'use strict'
 
 import { app, BrowserWindow } from 'electron'
-import * as fs from 'fs'
-import * as os from 'os'
+import { existsSync, mkdir } from 'fs'
+import { homedir } from 'os'
 
 import '../renderer/store'
 
-const PATH_TO_PLAYLISTS = os.path.join(os.homedir(), '/Music/SpotifyPlaylists')
+const PATH_TO_PLAYLISTS = require('path').join(homedir(), '/Music/SpotifyPlaylists')
 
 /**
  * Set `__static` path to static files in production
@@ -49,7 +49,7 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   // Checking if playlists dir already exists
-  if (!fs.existsSync(PATH_TO_PLAYLISTS)) fs.mkdir(PATH_TO_PLAYLISTS)
+  if (!existsSync(PATH_TO_PLAYLISTS)) mkdir(PATH_TO_PLAYLISTS)
 
   if (mainWindow === null) {
     createWindow()
