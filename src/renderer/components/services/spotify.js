@@ -1,7 +1,7 @@
 const request = require('request')
 const { encode } = require('base-64')
 
-const { options } = require('./secrets')
+const secrets = require('./secrets')
 
 const API_URL = 'https://api.spotify.com/v1'
 const TOKEN_URL = 'https://api.spotify.com/api/token'
@@ -15,9 +15,9 @@ module.exports.login = () => {
 
   return 'https://accounts.spotify.com/authorize' +
         '?response_type=code' +
-        '&client_id=' + options.client_id +
+        '&client_id=' + secrets.client_id +
         (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-        '&redirect_uri=' + encodeURIComponent(options.redirect)
+        '&redirect_uri=' + encodeURIComponent(secrets.redirect_url)
 }
 
 /**
@@ -29,7 +29,7 @@ module.exports.getAccessToken = (authorizationCode) => {
   const reqOptions = {
     url: TOKEN_URL,
     headers: {
-      'Authorization': 'Basic ' + encode(options.client_id + ':' + options.client_secret)
+      'Authorization': 'Basic ' + encode(secrets.client_id + ':' + secrets.client_secret)
     },
     postData: {
       mineType: 'application/x-www-form-urlencoded',
@@ -44,7 +44,7 @@ module.exports.getAccessToken = (authorizationCode) => {
         },
         {
           name: 'redirect_uri',
-          value: options.redirect_url
+          value: secrets.redirect_url
         }
       ]
     }
@@ -56,9 +56,9 @@ module.exports.getAccessToken = (authorizationCode) => {
       return err
     }
 
-    options.access_token = res.access_token
-    options.refresh_token = res.refresh_token
-    options.expirationTime = Date().getTime() + (res.expires_in * 1000)
+    secrets.access_token = res.access_token
+    secrets.refresh_token = res.refresh_token
+    secrets.expirationTime = Date().getTime() + (res.expires_in * 1000)
   })
 }
 
@@ -71,7 +71,7 @@ const refreshAccessToken = () => {
   const reqOptions = {
     url: TOKEN_URL,
     headers: {
-      'Authorization': 'Basic ' + encode(options.client_id + ':' + options.client_secret)
+      'Authorization': 'Basic ' + encode(secrets.client_id + ':' + secrets.client_secret)
     },
     postData: {
       mineType: 'application/x-www-form-urlencoded',
@@ -82,7 +82,7 @@ const refreshAccessToken = () => {
         },
         {
           name: 'refresh_token',
-          value: options.refresh_token
+          value: secrets.refresh_token
         }
       ]
     }
@@ -94,8 +94,8 @@ const refreshAccessToken = () => {
       return err
     }
 
-    options.access_token = res.access_token
-    options.expirationTime = Date().getTime() + (res.expires_in * 1000)
+    secrets.access_token = res.access_token
+    secrets.expirationTime = Date().getTime() + (res.expires_in * 1000)
   })
 }
 
@@ -170,14 +170,14 @@ module.exports.getUserPlaylists = (userId) => {
   console.log('getting user playlists')
 
   // Check if token has expired and refresh if necessary
-  if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
+  if (!secrets.expirationTime || new Date().getTime() > secrets.expirationTime) {
     refreshAccessToken()
   }
 
   const reqOptions = {
     url: API_URL + '/users/' + userId + '/playlists',
     headers: {
-      'Authorization': 'Bearer ' + options.access_token
+      'Authorization': 'Bearer ' + secrets.access_token
     }
   }
 
@@ -325,14 +325,14 @@ module.exports.getPlaylistTracks = (playlistId) => {
   console.log('getting playlist tracks')
 
   // Check if token has expired and refresh if necessary
-  if (!options.expirationTime || new Date().getTime() > options.expirationTime) {
+  if (!secrets.expirationTime || new Date().getTime() > secrets.expirationTime) {
     refreshAccessToken()
   }
 
   const reqOptions = {
     url: API_URL + '/playlists/' + playlistId + '/tracks',
     headers: {
-      'Authorization': 'Bearer ' + options.access_token
+      'Authorization': 'Bearer ' + secrets.access_token
     }
   }
 

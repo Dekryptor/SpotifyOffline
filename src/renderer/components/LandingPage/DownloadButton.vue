@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn"
+    class="btn btn-primary btn-large"
     type="button"
     :class="downloadStatus"
     @click="download()"
@@ -33,5 +33,7 @@ export default {
 </script>
 
 <style scoped>
+
+
 
 </style>

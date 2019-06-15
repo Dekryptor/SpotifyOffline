@@ -11,9 +11,11 @@
           Welcome to Spotify Offline!
         </span>
 
-        <playlist-selector />
-        <download-button />
-        <download-status />
+        <div id="pipeline">
+          <playlist-selector />
+          <download-button />
+          <download-status />
+        </div>
       </div>
     </main>
   </div>
@@ -23,6 +25,7 @@
 import DownloadButton from './LandingPage/DownloadButton'
 import DownloadStatus from './LandingPage/DownloadStatus'
 import PlaylistSelector from './LandingPage/PlaylistSelector'
+import auth from './services/Auth'
 
 export default {
   name: 'LandingPage',
@@ -34,6 +37,10 @@ export default {
   methods: {
     open (link) {
       this.$electron.shell.openExternal(link)
+    },
+
+    mounted() {
+      auth.authorize();
     }
   }
 }
@@ -49,6 +56,10 @@ export default {
   }
 
   body { font-family: 'Source Sans Pro', sans-serif; }
+
+  #pipeline {
+
+  }
 
   #wrapper {
     background:
