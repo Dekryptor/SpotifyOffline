@@ -2,11 +2,10 @@
 
 import { app, BrowserWindow } from 'electron'
 import { existsSync, mkdir } from 'fs'
-import { homedir } from 'os'
 
 import '../renderer/store'
 
-const PATH_TO_PLAYLISTS = require('path').join(homedir(), '/Music/SpotifyPlaylists')
+const PATH_TO_PLAYLISTS = require('path').join(app.getPath('home'), '/Music/SpotifyPlaylists')
 
 /**
  * Set `__static` path to static files in production
