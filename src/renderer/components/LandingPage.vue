@@ -25,7 +25,6 @@
 import DownloadButton from './LandingPage/DownloadButton'
 import DownloadStatus from './LandingPage/DownloadStatus'
 import PlaylistSelector from './LandingPage/PlaylistSelector'
-import auth from './services/Auth'
 
 export default {
   name: 'LandingPage',
@@ -37,10 +36,6 @@ export default {
   methods: {
     open (link) {
       this.$electron.shell.openExternal(link)
-    },
-
-    mounted() {
-      auth.authorize();
     }
   }
 }
