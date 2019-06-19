@@ -14,7 +14,6 @@ export default {
   },
   authorize (authCode) {
     authCode = authCode || this.getAuthCode()
-    console.log('No auth code ', authCode)
 
     if (!authCode) {
       window.location.replace(login())

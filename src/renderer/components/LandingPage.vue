@@ -11,10 +11,13 @@
           Welcome to Spotify Offline!
         </span>
 
-        <div id="pipeline">
+        <div v-if="logged_in" id="pipeline">
           <playlist-selector />
           <download-button />
           <download-status />
+        </div>
+        <div v-else>
+          <button v-on:click="login" id="login_btn">login</button>
         </div>
       </div>
     </main>
@@ -25,6 +28,7 @@
 import DownloadButton from './LandingPage/DownloadButton'
 import DownloadStatus from './LandingPage/DownloadStatus'
 import PlaylistSelector from './LandingPage/PlaylistSelector'
+import Auth from './services/Auth'
 
 export default {
   name: 'LandingPage',
@@ -33,9 +37,19 @@ export default {
     DownloadButton,
     PlaylistSelector
   },
+  data () {
+    return {
+      logged_in: false
+    }
+  },
   methods: {
     open (link) {
       this.$electron.shell.openExternal(link)
+    },
+
+    login () {
+      Auth.authorize()
+      this.logged_in = true
     }
   }
 }
