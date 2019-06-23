@@ -9,6 +9,9 @@ const state = {
 }
 
 const mutations = {
+  setAccessToken () {
+
+  },
   toggleDownloadStatus () {
     this.state.downloadStatus = !this.state.downloadStatus
   }

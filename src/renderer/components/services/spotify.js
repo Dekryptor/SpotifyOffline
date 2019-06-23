@@ -6,12 +6,16 @@ const secrets = require('./secrets')
 const API_URL = 'https://api.spotify.com/v1'
 const TOKEN_URL = 'https://api.spotify.com/api/token'
 
+// TODO: Move all these functions to Vuex store
+
 module.exports.login = () => {
   // Scopes for what data the application wants to access
   const scopes = 'user-read-private ' +
         'user-read-email ' +
         'playlist-read-private ' +
         'playlist-read-collaborative'
+
+  console.log(secrets.default)
 
   return 'https://accounts.spotify.com/authorize' +
         '?response_type=code' +

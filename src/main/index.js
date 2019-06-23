@@ -1,8 +1,10 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import { existsSync, mkdir } from 'fs'
+import electronOauth2 from 'electron-oauth2'
 
+import oauthConfig from '../renderer/components/services/secrets'
 import '../renderer/store'
 
 const PATH_TO_PLAYLISTS = require('path').join(app.getPath('home'), '/Music/SpotifyPlaylists')
@@ -20,23 +22,36 @@ const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`
 
-function createWindow () {
-  /**
-   * Initial window options
-   */
-  mainWindow = new BrowserWindow({
-    height: 563,
-    width: 1000,
-    useContentSize: true,
-    resizable: false
-  })
+/**
+ * Initial window options
+ */
+mainWindow = new BrowserWindow({
+  height: 563,
+  width: 1000,
+  useContentSize: true,
+  resizable: false
+})
 
+function createWindow () {
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
     mainWindow = null
   })
 }
+
+// REFERENCE
+// https://medium.com/linagora-engineering/using-oauth-in-an-electron-application-abb0376c2ae0
+const spotifyOAuth = electronOauth2(oauthConfig, mainWindow)
+
+ipcMain.on('spotify-oauth', (event, arg) => {
+  spotifyOAuth.getAccessToken({})
+    .then(token => {
+      event.sender.send('spotify-oauth-reply', token)
+    }, err => {
+      console.log('Error while getting token', err)
+    })
+})
 
 app.on('ready', createWindow)
 

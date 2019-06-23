@@ -11,13 +11,21 @@
           Welcome to Spotify Offline!
         </span>
 
-        <div v-if="logged_in" id="pipeline">
+        <div
+          v-if="logged_in"
+          id="pipeline"
+        >
           <playlist-selector />
           <download-button />
           <download-status />
         </div>
         <div v-else>
-          <button v-on:click="login" id="login_btn">login</button>
+          <button
+            id="login_btn"
+            @click="login"
+          >
+            Log In
+          </button>
         </div>
       </div>
     </main>
@@ -28,7 +36,7 @@
 import DownloadButton from './LandingPage/DownloadButton'
 import DownloadStatus from './LandingPage/DownloadStatus'
 import PlaylistSelector from './LandingPage/PlaylistSelector'
-import Auth from './services/Auth'
+import { ipcRenderer } from 'electron'
 
 export default {
   name: 'LandingPage',
@@ -48,7 +56,7 @@ export default {
     },
 
     login () {
-      Auth.authorize()
+      ipcRenderer.send('spotify-oauth', 'getToken')
       this.logged_in = true
     }
   }
