@@ -1,6 +1,7 @@
 <template>
   <button
     class="btn btn-primary btn-large"
+    id="download_btn"
     type="button"
     :class="downloadStatus"
     @click="download()"
@@ -33,5 +34,9 @@ export default {
 </script>
 
 <style scoped>
+
+  #download_btn {
+    padding: 10px;
+  }
 
 </style>

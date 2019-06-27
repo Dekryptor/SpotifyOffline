@@ -6,9 +6,9 @@
       alt="electron-vue"
     >
     <main>
-      <div class="left-side">
+      <div class="container">
         <span class="title">
-          Welcome to Spotify Offline!
+          Spotify Offline
         </span>
 
         <div
@@ -21,10 +21,10 @@
         </div>
         <div v-else>
           <button
-            id="login_btn"
+            class="login_btn"
             @click="login"
           >
-            Log In
+            Login with Spotify
           </button>
         </div>
       </div>
@@ -75,7 +75,8 @@ export default {
   body { font-family: 'Source Sans Pro', sans-serif; }
 
   #pipeline {
-
+    display: flex;
+    justify-content: space-evenly;
   }
 
   #wrapper {
@@ -86,8 +87,9 @@ export default {
         rgba(229, 229, 229, .9) 100%
       );
     height: 100vh;
-    padding: 60px 80px;
     width: 100vw;
+    padding: 60px 80px;
+    margin: auto;
   }
 
   #logo {
@@ -103,15 +105,11 @@ export default {
 
   main > div { flex-basis: 50%; }
 
-  .left-side {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .welcome {
-    color: #555;
-    font-size: 23px;
-    margin-bottom: 10px;
+  .login_btn {
+    padding: 10px;
+    color: white;
+    background-color: green;
+    border-radius: 20px;
   }
 
   .title {
@@ -126,27 +124,4 @@ export default {
     margin-bottom: 10px;
   }
 
-  .doc p {
-    color: black;
-    margin-bottom: 10px;
-  }
-
-  .doc button {
-    font-size: .8em;
-    cursor: pointer;
-    outline: none;
-    padding: 0.75em 2em;
-    border-radius: 2em;
-    display: inline-block;
-    color: #fff;
-    background-color: #4fc08d;
-    transition: all 0.15s ease;
-    box-sizing: border-box;
-    border: 1px solid #4fc08d;
-  }
-
-  .doc button.alt {
-    color: #42b983;
-    background-color: transparent;
-  }
 </style>

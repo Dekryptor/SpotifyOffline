@@ -25,14 +25,17 @@ const winURL = process.env.NODE_ENV === 'development'
 /**
  * Initial window options
  */
-mainWindow = new BrowserWindow({
+
+const windowParams = {
   height: 563,
   width: 1000,
   useContentSize: true,
   resizable: false
-})
+}
 
 function createWindow () {
+  mainWindow = new BrowserWindow(windowParams)
+
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
@@ -42,7 +45,7 @@ function createWindow () {
 
 // REFERENCE
 // https://medium.com/linagora-engineering/using-oauth-in-an-electron-application-abb0376c2ae0
-const spotifyOAuth = electronOauth2(oauthConfig, mainWindow)
+const spotifyOAuth = electronOauth2(oauthConfig, windowParams)
 
 ipcMain.on('spotify-oauth', (event, arg) => {
   spotifyOAuth.getAccessToken({})
