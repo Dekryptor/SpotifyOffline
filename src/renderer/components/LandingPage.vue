@@ -56,6 +56,8 @@ export default {
     },
 
     login () {
+      // REFERENCE
+      // https://medium.com/linagora-engineering/using-oauth-in-an-electron-application-abb0376c2ae0
       ipcRenderer.send('spotify-oauth', 'getToken')
       this.logged_in = true
     }
@@ -72,11 +74,18 @@ export default {
     padding: 0;
   }
 
-  body { font-family: 'Source Sans Pro', sans-serif; }
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
 
   #pipeline {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+  }
+
+  #pipeline * {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   #wrapper {
@@ -94,6 +103,8 @@ export default {
 
   #logo {
     height: auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 20px;
     width: 420px;
   }
@@ -106,10 +117,11 @@ export default {
   main > div { flex-basis: 50%; }
 
   .login_btn {
-    padding: 10px;
     color: white;
     background-color: green;
     border-radius: 20px;
+    padding: 10px;
+    margin: auto;
   }
 
   .title {
@@ -117,11 +129,6 @@ export default {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 6px;
-  }
-
-  .title.alt {
-    font-size: 18px;
-    margin-bottom: 10px;
   }
 
 </style>

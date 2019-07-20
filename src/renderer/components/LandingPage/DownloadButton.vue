@@ -3,7 +3,7 @@
     class="btn btn-primary btn-large"
     id="download_btn"
     type="button"
-    :class="downloadStatus"
+    :disabled=downloadStatus
     @click="download()"
   >
     Download Playlist
@@ -36,7 +36,7 @@ export default {
 <style scoped>
 
   #download_btn {
-    padding: 10px;
+    padding: 20px;
   }
 
 </style>

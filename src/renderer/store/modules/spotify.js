@@ -5,7 +5,8 @@ const state = {
   // playlists: ['playlist1', 'playlist2', 'playlist3'],
 
   // States: Ideal = false or Downloading = true
-  downloadStatus: false
+  downloadStatus: false,
+  logged_in: false
 }
 
 const mutations = {

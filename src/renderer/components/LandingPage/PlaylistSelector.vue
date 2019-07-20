@@ -24,11 +24,14 @@ export default {
   name: 'PlaylistSelector',
   data () {
     return {
-      selectedPlaylist: null,
-      playlists: ['playlist1', 'playlist2', 'playlist3']
+      selectedPlaylist: null
+    }
+  },
+  computed: {
+    playlists () {
+      return ['playlist1', 'playlist2', 'playlist3']
     }
   }
-
 }
 </script>
 
