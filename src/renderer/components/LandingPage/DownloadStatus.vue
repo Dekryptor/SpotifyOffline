@@ -14,8 +14,9 @@ import { mapState } from 'vuex'
 export default {
   name: 'DownloadStatus',
 
-  computed: mapState(['downloadStatus'])
-
+  computed: mapState({
+    downloadStatus: state => state.spotify.downloadStatus
+  })
 }
 </script>
 

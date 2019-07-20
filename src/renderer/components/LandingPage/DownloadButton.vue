@@ -17,12 +17,15 @@ import { mapState } from 'vuex'
 export default {
   name: 'DownloadButton',
 
-  computed: mapState(['downloadStatus']),
+  computed: mapState({
+    downloadStatus: state => state.spotify.downloadStatus
+  }),
 
   methods: {
     download () {
-      // this.$store.dispatch('toggleDownloadStatus')
+      this.$store.dispatch('toggleDownloadStatus')
 
+      console.log('downloadStatus', this.$store.state.spotify.downloadStatus)
       // [!!!] Fake function to emulate downloading
       // TODO: Replace with actual downloading
       setTimeout(() => {
