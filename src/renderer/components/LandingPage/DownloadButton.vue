@@ -1,9 +1,9 @@
 <template>
   <button
-    class="btn btn-primary btn-large"
     id="download_btn"
+    class="btn btn-primary btn-large"
     type="button"
-    :disabled=downloadStatus
+    :disabled="downloadStatus"
     @click="download()"
   >
     Download Playlist
@@ -21,7 +21,7 @@ export default {
 
   methods: {
     download () {
-      this.$store.dispatch('toggleDownloadStatus')
+      // this.$store.dispatch('toggleDownloadStatus')
 
       // [!!!] Fake function to emulate downloading
       // TODO: Replace with actual downloading

@@ -1,26 +1,32 @@
 
-const state = {
+// REFERENCE
+// https://alligator.io/vuejs/vue-electron/
 
-  // Mock playlists
-  // playlists: ['playlist1', 'playlist2', 'playlist3'],
+const state = {
 
   // States: Ideal = false or Downloading = true
   downloadStatus: false,
   logged_in: false
+
+  // Playlist to be downloaded
+  // selectedPlaylist: null
 }
 
 const mutations = {
-  setAccessToken () {
-
+  setAccessToken (state, accessToken) {
+    console.log(accessToken)
   },
-  toggleDownloadStatus () {
-    this.state.downloadStatus = !this.state.downloadStatus
+  toggleDownloadStatus (state) {
+    state.downloadStatus = !state.downloadStatus
   }
 }
 
 const actions = {
-  toggleDownloadStatus (store) {
-    store.commit('toggleDownloadStatus')
+  setAccessToken ({ commit }, accessToken) {
+    commit('setAccessToken', accessToken)
+  },
+  toggleDownloadStatus ({ commit }) {
+    commit('toggleDownloadStatus')
   }
 }
 
